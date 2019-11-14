@@ -1,5 +1,6 @@
 package com.tp.meteoinconnu;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -9,8 +10,23 @@ import androidx.annotation.NonNull;
 
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public class MainActivity extends AppCompatActivity {
+    public static int AJOUT_PERS_REQUEST_CODE = 1;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -22,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_dashboard:
-
+                    Intent intent = new Intent(MainActivity.this, AjouterActivity.class);
+                    startActivityForResult(intent, AJOUT_PERS_REQUEST_CODE);
                     return true;
                 case R.id.navigation_notifications:
 

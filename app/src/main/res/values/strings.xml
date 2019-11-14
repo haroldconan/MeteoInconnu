@@ -4,4 +4,14 @@
     <string name="title_home">Liste d\'inconnu</string>
     <string name="title_dashboard">Ajouter</string>
     <string name="title_notifications">Météo</string>
+    <string name="nom">Nom</string>
+    <string name="prenom">Prenom</string>
+    <string name="age">Age</string>
+    <string name="ville">Ville</string>
+    <string name="sexe">Sexe</string>
+    <string name="btnFinishAdd">Valider</string>
+    <string-array name="sexe">
+        <item>Homme</item>
+        <item>Femme</item>
+    </string-array>
 </resources>
