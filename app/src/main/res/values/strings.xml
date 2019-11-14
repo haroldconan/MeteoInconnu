@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MeteoInconnu</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Liste d\'inconnu</string>
+    <string name="title_dashboard">Ajouter</string>
+    <string name="title_notifications">Météo</string>
 </resources>
