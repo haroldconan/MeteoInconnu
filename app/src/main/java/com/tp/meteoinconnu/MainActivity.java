@@ -33,10 +33,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final int AJOUT_PERS_REQUEST_CODE = 1;
-    public static final String KEY_NOM ="NOM";
+    public static final String KEY_NOM = "NOM";
     public static final String KEY_PRENOM = "PRENOM";
     public static final String KEY_AGE = "AGE";
-    public static final String KEY_VILLE ="VILLE";
+    public static final String KEY_VILLE = "VILLE";
     public static final String KEY_SEXE = "SEXE";
     public static final String KEY_IMG = "IMG";
     public static final String KEY_PAYS = "PAYS";
@@ -166,8 +166,8 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 switch (requestCode) {
                     case AJOUT_PERS_REQUEST_CODE: {
-                        Log.d("\n\n\nResult" , data.getStringExtra(KEY_NOM)+data.getStringExtra(KEY_PRENOM)+ data.getStringExtra(KEY_VILLE)+ "none"+data.getStringExtra(KEY_SEXE)+Integer.parseInt(data.getStringExtra(KEY_AGE))+ "https://randomuser.me/api/portraits/men/88.jpg" + " \n\n\n");
-                        Users users = new Users(data.getStringExtra(KEY_NOM), data.getStringExtra(KEY_PRENOM), data.getStringExtra(KEY_VILLE), "none",data.getStringExtra(KEY_SEXE), Integer.parseInt(data.getStringExtra(KEY_AGE)), "https://randomuser.me/api/portraits/men/88.jpg");
+                        Log.d("\n\n\nResult", data.getStringExtra(KEY_NOM) + data.getStringExtra(KEY_PRENOM) + data.getStringExtra(KEY_VILLE) + "none" + data.getStringExtra(KEY_SEXE) + Integer.parseInt(data.getStringExtra(KEY_AGE)) + "https://randomuser.me/api/portraits/men/88.jpg" + " \n\n\n");
+                        Users users = new Users(data.getStringExtra(KEY_NOM), data.getStringExtra(KEY_PRENOM), data.getStringExtra(KEY_VILLE), "none", data.getStringExtra(KEY_SEXE), Integer.parseInt(data.getStringExtra(KEY_AGE)), "https://randomuser.me/api/portraits/men/88.jpg");
                         monAdapteur.add(users);
                         usersActuel.add(users);
                         monAdapteur.notifyDataSetChanged();
@@ -175,12 +175,11 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 }
-
-            }else{
-                navView.setSelectedItemId( R.id.navigation_home);
             }
-        }catch (Exception e){
-            Log.d("Erreur result : ",e.getMessage());
+            navView.setSelectedItemId(R.id.navigation_home);
+
+        } catch (Exception e) {
+            Log.d("Erreur result : ", e.getMessage());
         }
 
     }
