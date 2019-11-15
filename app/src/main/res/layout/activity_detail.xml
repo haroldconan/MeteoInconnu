@@ -11,13 +11,11 @@
         android:id="@+id/nav_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu" >
+        app:menu="@menu/menumeteo">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
@@ -39,7 +37,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="257dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <LinearLayout
                 android:layout_width="209dp"
@@ -47,27 +46,31 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/txtnomuserdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="10dp"
                     android:text="TextView" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/txtprenomuserdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="10dp"
                     android:text="TextView" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/txtageuserdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="10dp"
                     android:text="TextView" />
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/txtsexeuserdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="10dp"
                     android:text="TextView" />
             </LinearLayout>
 
@@ -77,15 +80,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/txtvilleuserdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="10dp"
                     android:text="TextView" />
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/txtpaysuserdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="10dp"
                     android:text="TextView" />
 
             </LinearLayout>
@@ -94,7 +99,36 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"></LinearLayout>
+            android:layout_height="213dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgmeteo"
+                android:layout_width="300px"
+                android:layout_height="300px"
+                android:layout_margin="20px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txttemperaturemeteodetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/txthumidimeteodetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="TextView" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -174,7 +174,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent intent = new Intent();
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra(KEY_NOM, usersActuel.get(i).getNom());
+                intent.putExtra(KEY_PRENOM,usersActuel.get(i).getPrenom());
+                intent.putExtra(KEY_AGE,usersActuel.get(i).getAge());
+                intent.putExtra(KEY_IMG,usersActuel.get(i).getImgURL());
+                intent.putExtra(KEY_PAYS,usersActuel.get(i).getPays());
+                intent.putExtra(KEY_SEXE,usersActuel.get(i).getSexe());
+                intent.putExtra(KEY_VILLE,usersActuel.get(i).getVille());
+                startActivity(intent);
 
             }
         });
