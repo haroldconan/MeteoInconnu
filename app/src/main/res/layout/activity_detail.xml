@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imguser"
+            android:id="@+id/imguserdetail"
             android:layout_width="300px"
             android:layout_height="300px"
             android:layout_margin="20px" />
@@ -50,13 +50,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/txtprenomuserdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:textSize="20sp"
                     android:text="TextView" />
 
                 <TextView
@@ -64,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:textSize="20sp"
                     android:text="TextView" />
 
                 <TextView
@@ -71,6 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:textSize="20sp"
                     android:text="TextView" />
             </LinearLayout>
 
@@ -84,6 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:textSize="20sp"
                     android:text="TextView" />
 
                 <TextView
@@ -91,6 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:textSize="20sp"
                     android:text="TextView" />
 
             </LinearLayout>
@@ -103,7 +109,7 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imgmeteo"
+                android:id="@+id/imgmeteodetail"
                 android:layout_width="300px"
                 android:layout_height="300px"
                 android:layout_margin="20px" />
@@ -119,6 +125,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:textSize="20sp"
                     android:text="TextView" />
 
                 <TextView
@@ -126,6 +133,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:textSize="20sp"
+                    android:text="TextView" />
+                <TextView
+                    android:id="@+id/txtmaindetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textSize="20sp"
                     android:text="TextView" />
             </LinearLayout>
         </LinearLayout>

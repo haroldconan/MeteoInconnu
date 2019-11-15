@@ -163,6 +163,10 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.i("Erreur async", e.getMessage());
                 }
+                finally {
+                    if(connection != null   )
+                    connection.disconnect();
+                }
                 return listencour;
             }
 
