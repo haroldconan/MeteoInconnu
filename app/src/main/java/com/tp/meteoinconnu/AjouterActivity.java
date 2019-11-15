@@ -13,14 +13,14 @@ import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 public class AjouterActivity extends AppCompatActivity {
     public EditText nom, prenom, age, ville;
     public Spinner sexe;
-    public Button btnValider;
+    public ImageButton btnValider;
     public AlertDialog.Builder alertDialogBuilder;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

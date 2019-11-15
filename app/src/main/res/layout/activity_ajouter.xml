@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,11 +80,12 @@
             android:layout_height="wrap_content"
             android:entries="@array/sexe" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnFinishAdd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btnFinishAdd" />
+            android:layout_width="77dp"
+            android:layout_height="68dp"
+            android:background="@drawable/button_bg_round"
+            app:srcCompat="@android:drawable/ic_menu_save" />
 
     </LinearLayout>
 

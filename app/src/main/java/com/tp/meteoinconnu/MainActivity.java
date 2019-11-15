@@ -35,6 +35,7 @@ import com.google.gson.JsonParser;
 public class MainActivity extends AppCompatActivity {
     public static final int AJOUT_PERS_REQUEST_CODE = 1;
     public static final int METEO_REQUEST_CODE = 2;
+    public static final int PARAMETRE_REQUEST_CODE = 3;
     public static final String KEY_NOM = "NOM";
     public static final String KEY_PRENOM = "PRENOM";
     public static final String KEY_AGE = "AGE";
@@ -87,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if ( id == R.id.menuparam){
-
+            Intent intent = new Intent(MainActivity.this, ParametreActivity.class);
+            startActivityForResult(intent, PARAMETRE_REQUEST_CODE);
             return true;
         }
 
