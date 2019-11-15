@@ -29,6 +29,7 @@ public class AjouterActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     return alertDialog();
@@ -77,6 +78,7 @@ public class AjouterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ajouter);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navView.setSelectedItemId(R.id.navigation_dashboard);
         getData();
         btnValider = findViewById(R.id.btnFinishAdd);
         alertDialogBuilder = new AlertDialog.Builder(this);

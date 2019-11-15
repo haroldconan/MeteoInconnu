@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     AdaptateurListe monAdapteur;
     JsonObject jsonObject = null;
     List<Users> usersActuel = new ArrayList<>();
+    BottomNavigationView navView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         monAdapteur = new AdaptateurListe(this, usersActuel);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         listView = findViewById(R.id.listinconnu);
         listView.setAdapter(monAdapteur);
@@ -175,6 +176,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+            }else{
+                navView.setSelectedItemId( R.id.navigation_home);
             }
         }catch (Exception e){
             Log.d("Erreur result : ",e.getMessage());
