@@ -31,9 +31,7 @@ public class AjouterActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    getData();
-                    addAndFinishIntent();
-                    return true;
+                    return alertDialog();
                 case R.id.navigation_dashboard:
 
                     return true;
@@ -45,26 +43,32 @@ public class AjouterActivity extends AppCompatActivity {
         }
     };
 
-    private void alertDialog() {
+    private boolean alertDialog() {
+        final boolean[] quitter = {false};
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Vous ");
-        alertDialogBuilder.setPositiveButton("yes",
+        alertDialogBuilder.setMessage("Etes vous sur de vouloir quitter ? vous aller perdre vos données ");
+        alertDialogBuilder.setPositiveButton("oui",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        Toast.makeText(AjouterActivity.this, "You clicked yes button", Toast.LENGTH_LONG).show();
+                        Intent request = new Intent(AjouterActivity.this, MainActivity.class);
+                        setResult(AjouterActivity.RESULT_CANCELED, request);
+                        finish();
+                        quitter[0] = true;
+
                     }
                 });
-        alertDialogBuilder.setNegativeButton("no",
+        alertDialogBuilder.setNegativeButton("non",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        Toast.makeText(AjouterActivity.this, "You clicked yes button", Toast.LENGTH_LONG).show();
-                        return;
+
+
                     }
                 });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+        return quitter[0];
     }
 
     @Override
@@ -79,28 +83,28 @@ public class AjouterActivity extends AppCompatActivity {
         btnValider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(nom.getText().toString())){
-                    nom.setError("Ne peut pas être vide.");
-                    return;
-                }
-                if(TextUtils.isEmpty(prenom.getText().toString())){
-                    prenom.setError("Ne peut pas être vide.");
-                    return;
-                }
-                if(TextUtils.isEmpty(age.getText().toString())){
-                    age.setError("Ne peut pas être vide.");
-                    return;
-                }
-                if(TextUtils.isEmpty(ville.getText().toString())){
-                    ville.setError("Ne peut pas être vide.");
-                    return;
-                }
                 addAndFinishIntent();
             }
         });
     }
 
     private void addAndFinishIntent() {
+        if(TextUtils.isEmpty(nom.getText().toString())){
+            nom.setError("Ne peut pas être vide.");
+            return;
+        }
+        if(TextUtils.isEmpty(prenom.getText().toString())){
+            prenom.setError("Ne peut pas être vide.");
+            return;
+        }
+        if(TextUtils.isEmpty(age.getText().toString())){
+            age.setError("Ne peut pas être vide.");
+            return;
+        }
+        if(TextUtils.isEmpty(ville.getText().toString())){
+            ville.setError("Ne peut pas être vide.");
+            return;
+        }
         Intent request = new Intent(AjouterActivity.this, MainActivity.class);
         request.putExtra(MainActivity.KEY_NOM, nom.getText().toString());
         request.putExtra(MainActivity.KEY_PRENOM, prenom.getText().toString());
