@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -61,19 +62,41 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, AjouterActivity.class);
                     startActivityForResult(intent, AJOUT_PERS_REQUEST_CODE);
                     return true;
-                case R.id.navigation_notifications:
-
-                    return true;
             }
             return false;
         }
     };
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.bar, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.menumeteo) {
+
+            return true;
+        }
+        if ( id == R.id.menuparam){
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         monAdapteur = new AdaptateurListe(this, usersActuel);
         setContentView(R.layout.activity_main);
+
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         listView = findViewById(R.id.listinconnu);

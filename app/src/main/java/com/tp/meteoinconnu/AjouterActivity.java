@@ -35,8 +35,6 @@ public class AjouterActivity extends AppCompatActivity {
                 case R.id.navigation_dashboard:
 
                     return true;
-                case R.id.navigation_notifications:
-                    return alertDialogMeteo();
             }
             return false;
         }
