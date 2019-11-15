@@ -33,7 +33,6 @@ public class AjouterActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     return alertDialogHome();
                 case R.id.navigation_dashboard:
-
                     return true;
             }
             return false;
@@ -41,31 +40,6 @@ public class AjouterActivity extends AppCompatActivity {
     };
 
     private boolean alertDialogHome() {
-        final boolean[] quitter = {false};
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Etes-vous sûr de vouloir quitter ? Vous allez perdre vos données !");
-        alertDialogBuilder.setPositiveButton("Oui",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        Intent request = new Intent(AjouterActivity.this, MainActivity.class);
-                        setResult(AjouterActivity.RESULT_CANCELED, request);
-                        finish();
-                        quitter[0] = true;
-                    }
-                });
-        alertDialogBuilder.setNegativeButton("Non",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                    }
-                });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-        return quitter[0];
-    }
-
-    private boolean alertDialogMeteo() {
         final boolean[] quitter = {false};
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Etes-vous sûr de vouloir quitter ? Vous allez perdre vos données !");

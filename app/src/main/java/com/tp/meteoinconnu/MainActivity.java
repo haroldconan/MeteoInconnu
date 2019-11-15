@@ -34,6 +34,7 @@ import com.google.gson.JsonParser;
 
 public class MainActivity extends AppCompatActivity {
     public static final int AJOUT_PERS_REQUEST_CODE = 1;
+    public static final int METEO_REQUEST_CODE = 2;
     public static final String KEY_NOM = "NOM";
     public static final String KEY_PRENOM = "PRENOM";
     public static final String KEY_AGE = "AGE";
@@ -81,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.menumeteo) {
-
+            Intent intent = new Intent(MainActivity.this, MeteoActivity.class);
+            startActivityForResult(intent, METEO_REQUEST_CODE);
             return true;
         }
         if ( id == R.id.menuparam){

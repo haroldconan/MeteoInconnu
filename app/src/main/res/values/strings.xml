@@ -9,6 +9,7 @@
     <string name="age">Age</string>
     <string name="ville">Ville</string>
     <string name="sexe">Sexe</string>
+    <string name="titreMeteo">MÉTÉO UTILISATEUR</string>
     <string name="btnFinishAdd">Valider</string>
     <string-array name="sexe">
         <item>Homme</item>

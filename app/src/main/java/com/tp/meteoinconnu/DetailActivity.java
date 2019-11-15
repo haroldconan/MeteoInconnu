@@ -14,7 +14,7 @@ public class DetailActivity extends AppCompatActivity {
 
     BottomNavigationView navView;
     Bundle bundle;
-    TextView txtnom,txtprenom,txtville,txtage,txtsexe,txttemperature,txthumidite,txtpays;
+    TextView txtnom, txtprenom, txtville, txtage, txtsexe, txttemperature, txthumidite, txtpays;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -34,6 +34,9 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navView.setSelectedItemId(R.id.navigation_dashboard);
         bundle = getIntent().getExtras();
         txtage = findViewById(R.id.txtageuserdetail);
         txtprenom = findViewById(R.id.txtprenomuserdetail);
