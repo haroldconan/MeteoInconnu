@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class AjouterActivity extends AppCompatActivity {
     public EditText nom, prenom, age, ville;
@@ -32,23 +31,22 @@ public class AjouterActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    return alertDialog();
+                    return alertDialogHome();
                 case R.id.navigation_dashboard:
 
                     return true;
                 case R.id.navigation_notifications:
-
-                    return true;
+                    return alertDialogMeteo();
             }
             return false;
         }
     };
 
-    private boolean alertDialog() {
+    private boolean alertDialogHome() {
         final boolean[] quitter = {false};
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Etes vous sur de vouloir quitter ? vous aller perdre vos données ");
-        alertDialogBuilder.setPositiveButton("oui",
+        alertDialogBuilder.setMessage("Etes-vous sûr de vouloir quitter ? Vous allez perdre vos données !");
+        alertDialogBuilder.setPositiveButton("Oui",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
@@ -56,15 +54,37 @@ public class AjouterActivity extends AppCompatActivity {
                         setResult(AjouterActivity.RESULT_CANCELED, request);
                         finish();
                         quitter[0] = true;
-
                     }
                 });
-        alertDialogBuilder.setNegativeButton("non",
+        alertDialogBuilder.setNegativeButton("Non",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+        return quitter[0];
+    }
 
-
+    private boolean alertDialogMeteo() {
+        final boolean[] quitter = {false};
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Etes-vous sûr de vouloir quitter ? Vous allez perdre vos données !");
+        alertDialogBuilder.setPositiveButton("Oui",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Intent request = new Intent(AjouterActivity.this, MainActivity.class);
+                        setResult(AjouterActivity.RESULT_CANCELED, request);
+                        finish();
+                        quitter[0] = true;
+                    }
+                });
+        alertDialogBuilder.setNegativeButton("Non",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
                     }
                 });
         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -91,19 +111,19 @@ public class AjouterActivity extends AppCompatActivity {
     }
 
     private void addAndFinishIntent() {
-        if(TextUtils.isEmpty(nom.getText().toString())){
+        if (TextUtils.isEmpty(nom.getText().toString())) {
             nom.setError("Ne peut pas être vide.");
             return;
         }
-        if(TextUtils.isEmpty(prenom.getText().toString())){
+        if (TextUtils.isEmpty(prenom.getText().toString())) {
             prenom.setError("Ne peut pas être vide.");
             return;
         }
-        if(TextUtils.isEmpty(age.getText().toString())){
+        if (TextUtils.isEmpty(age.getText().toString())) {
             age.setError("Ne peut pas être vide.");
             return;
         }
-        if(TextUtils.isEmpty(ville.getText().toString())){
+        if (TextUtils.isEmpty(ville.getText().toString())) {
             ville.setError("Ne peut pas être vide.");
             return;
         }

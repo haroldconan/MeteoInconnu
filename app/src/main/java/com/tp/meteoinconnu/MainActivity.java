@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -18,9 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.tp.meteoinconnu.objects.Users;
 
 import java.io.BufferedReader;
@@ -30,6 +26,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class MainActivity extends AppCompatActivity {
     public static final int AJOUT_PERS_REQUEST_CODE = 1;
@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
                         monAdapteur.notifyDataSetChanged();
                     }
                     break;
-
                 }
             }
             navView.setSelectedItemId(R.id.navigation_home);
@@ -181,6 +179,5 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.d("Erreur result : ", e.getMessage());
         }
-
     }
 }
