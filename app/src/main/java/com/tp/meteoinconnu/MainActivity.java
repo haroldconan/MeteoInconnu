@@ -165,9 +165,11 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 switch (requestCode) {
                     case AJOUT_PERS_REQUEST_CODE: {
+                        Log.d("\n\n\nResult" , data.getStringExtra(KEY_NOM)+data.getStringExtra(KEY_PRENOM)+ data.getStringExtra(KEY_VILLE)+ "none"+data.getStringExtra(KEY_SEXE)+Integer.parseInt(data.getStringExtra(KEY_AGE))+ "https://randomuser.me/api/portraits/men/88.jpg" + " \n\n\n");
                         Users users = new Users(data.getStringExtra(KEY_NOM), data.getStringExtra(KEY_PRENOM), data.getStringExtra(KEY_VILLE), "none",data.getStringExtra(KEY_SEXE), Integer.parseInt(data.getStringExtra(KEY_AGE)), "https://randomuser.me/api/portraits/men/88.jpg");
                         monAdapteur.add(users);
                         usersActuel.add(users);
+                        monAdapteur.notifyDataSetChanged();
                     }
                     break;
 

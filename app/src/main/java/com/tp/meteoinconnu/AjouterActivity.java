@@ -102,11 +102,11 @@ public class AjouterActivity extends AppCompatActivity {
 
     private void addAndFinishIntent() {
         Intent request = new Intent(AjouterActivity.this, MainActivity.class);
-        request.putExtra("KEY_NOM", nom.getText().toString());
-        request.putExtra("KEY_PRENOM", prenom.getText().toString());
-        request.putExtra("KEY_AGE", age.getText().toString());
-        request.putExtra("KEY_VILLE", ville.getText().toString());
-        request.putExtra("KEY_SEXE", sexe.getSelectedItem().toString());
+        request.putExtra(MainActivity.KEY_NOM, nom.getText().toString());
+        request.putExtra(MainActivity.KEY_PRENOM, prenom.getText().toString());
+        request.putExtra(MainActivity.KEY_AGE, age.getText().toString());
+        request.putExtra(MainActivity.KEY_VILLE, ville.getText().toString());
+        request.putExtra(MainActivity.KEY_SEXE, sexe.getSelectedItem().toString());
         setResult(AjouterActivity.RESULT_OK, request);
         finish();
     }
