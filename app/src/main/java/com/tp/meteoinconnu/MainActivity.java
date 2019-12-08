@@ -161,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
         dialog = new ProgressDialog(MainActivity.this);
         dialog.setMessage("Chargement...  " + progressentier[0] + "%");
         dialog.setCancelable(true);
-
+        monAdapteur.clear();
+        usersActuel = null;
         async = new AsyncTask<String, Integer, List<Users>>() {
 
 
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                     URL url = null;
 
                     url = new URL(URLLISTUSER);
-                    for (int i = 0; i < 30; i++) {
+                    for (int i = 0; i < 50; i++) {
                         connection = (HttpURLConnection) url.openConnection();
                         connection.connect();
 
@@ -214,13 +215,16 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("array", jsonArray.get(0).getAsJsonObject().getAsJsonObject("name").toString());
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
                         Users user = new Users(jsonArray.get(0).getAsJsonObject().getAsJsonObject("name").get("first").getAsString(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("name").get("last").getAsString(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("location").get("city").getAsString(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("location").get("country").getAsString(), jsonArray.get(0).getAsJsonObject().get("gender").getAsString(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("dob").get("age").getAsInt(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("picture").get("large").getAsString());
-                        Log.i("hey","\n"+pref.getBoolean(KEY_SEXE_PARAM_F,true)+"\n"+pref.getString(KEY_VILLE, "")+"\n"+pref.getString(KEY_PAYS, "")+"\n"+pref.getString(KEY_NOM, "")+"\n"+pref.getString(KEY_PRENOM, "")+"\n"+pref.getString(KEY_AGE, ""));
-                        if((!pref.getBoolean(KEY_SEXE_PARAM_F,true) && pref.getBoolean(KEY_SEXE_PARAM_H,true))&& user.getSexe() == "male") {
-                            if ((pref.getString(KEY_VILLE, "") != "" && pref.getString(KEY_VILLE, "") == user.getVille()) || pref.getString(KEY_VILLE, "") == "") {
-                                if ((pref.getString(KEY_PAYS, "") != "" && pref.getString(KEY_PAYS, "") == user.getPays())|| pref.getString(KEY_PAYS, "") == "") {
-                                    if ((pref.getString(KEY_NOM, "") != "" && pref.getString(KEY_NOM, "") == user.getNom()) || pref.getString(KEY_NOM, "") == "") {
-                                        if ((pref.getString(KEY_PRENOM, "") != "" && pref.getString(KEY_PRENOM, "") == user.getPrenom())|| pref.getString(KEY_PRENOM, "") == "") {
-                                            if ((pref.getString(KEY_AGE, "") != "" && Integer.parseInt(pref.getString(KEY_AGE, "")) == user.getAge())||pref.getString(KEY_AGE, "") == "") {
+                        Log.i("hey","\n"+pref.getBoolean(KEY_SEXE_PARAM_F,false)+"\n"+ pref.getBoolean(KEY_SEXE_PARAM_H,false)+"\n"+user.getSexe());
+                        Boolean f,h;
+                        f= pref.getBoolean(KEY_SEXE_PARAM_F,false);
+                        h = pref.getBoolean(KEY_SEXE_PARAM_H,false);
+                        if(!f && h && user.getSexe().equals("male")) {
+                            if (pref.getString(KEY_VILLE, "").equals(user.getVille()) || pref.getString(KEY_VILLE, "").equals("")) {
+                                if (pref.getString(KEY_PAYS, "").equals(user.getPays())|| pref.getString(KEY_PAYS, "").equals("")) {
+                                    if (pref.getString(KEY_NOM, "").equals(user.getNom()) || pref.getString(KEY_NOM, "").equals("")) {
+                                        if (pref.getString(KEY_PRENOM, "").equals(user.getPrenom())|| pref.getString(KEY_PRENOM, "").equals("")) {
+                                            if (!pref.getString(KEY_AGE, "").equals("")&&Integer.parseInt(pref.getString(KEY_AGE, "")) >= user.getAge()||pref.getString(KEY_AGE, "").equals("")) {
                                                 listencour.add(user);
                                             }
                                         }
@@ -228,12 +232,12 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                        if((pref.getBoolean(KEY_SEXE_PARAM_F,true) && !pref.getBoolean(KEY_SEXE_PARAM_H,true))&& user.getSexe() == "female") {
-                            if ((pref.getString(KEY_VILLE, "") != "" && pref.getString(KEY_VILLE, "") == user.getVille()) || pref.getString(KEY_VILLE, "") == "") {
-                                if ((pref.getString(KEY_PAYS, "") != "" && pref.getString(KEY_PAYS, "") == user.getPays())|| pref.getString(KEY_PAYS, "") == "") {
-                                    if ((pref.getString(KEY_NOM, "") != "" && pref.getString(KEY_NOM, "") == user.getNom()) || pref.getString(KEY_NOM, "") == "") {
-                                        if ((pref.getString(KEY_PRENOM, "") != "" && pref.getString(KEY_PRENOM, "") == user.getPrenom())|| pref.getString(KEY_PRENOM, "") == "") {
-                                            if ((pref.getString(KEY_AGE, "") != "" && Integer.parseInt(pref.getString(KEY_AGE, "")) == user.getAge())||pref.getString(KEY_AGE, "") == "") {
+                        if(f && !h&& user.getSexe().equals("female")) {
+                            if (pref.getString(KEY_VILLE, "").equals(user.getVille()) || pref.getString(KEY_VILLE, "").equals("")) {
+                                if (pref.getString(KEY_PAYS, "").equals(user.getPays())|| pref.getString(KEY_PAYS, "").equals("")) {
+                                    if (pref.getString(KEY_NOM, "").equals(user.getNom()) || pref.getString(KEY_NOM, "").equals("")) {
+                                        if (pref.getString(KEY_PRENOM, "").equals(user.getPrenom())|| pref.getString(KEY_PRENOM, "").equals("")) {
+                                            if (!pref.getString(KEY_AGE, "").equals("")&&Integer.parseInt(pref.getString(KEY_AGE, "")) >= user.getAge()||pref.getString(KEY_AGE, "").equals("")) {
                                                 listencour.add(user);
                                             }
                                         }
@@ -241,12 +245,12 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                        if((pref.getBoolean(KEY_SEXE_PARAM_F,true) && pref.getBoolean(KEY_SEXE_PARAM_H,true)) || (!pref.getBoolean(KEY_SEXE_PARAM_F,true) && !pref.getBoolean(KEY_SEXE_PARAM_H,true))) {
-                            if ((pref.getString(KEY_VILLE, "") != "" && pref.getString(KEY_VILLE, "") == user.getVille()) || pref.getString(KEY_VILLE, "") == "") {
-                                if ((pref.getString(KEY_PAYS, "") != "" && pref.getString(KEY_PAYS, "") == user.getPays())|| pref.getString(KEY_PAYS, "") == "") {
-                                    if ((pref.getString(KEY_NOM, "") != "" && pref.getString(KEY_NOM, "") == user.getNom()) || pref.getString(KEY_NOM, "") == "") {
-                                        if ((pref.getString(KEY_PRENOM, "") != "" && pref.getString(KEY_PRENOM, "") == user.getPrenom())|| pref.getString(KEY_PRENOM, "") == "") {
-                                            if ((pref.getString(KEY_AGE, "") != "" && Integer.parseInt(pref.getString(KEY_AGE, "")) == user.getAge())||pref.getString(KEY_AGE, "") == "") {
+                        if((f && h )|| (!f && !h)) {
+                            if (pref.getString(KEY_VILLE, "").equals(user.getVille()) || pref.getString(KEY_VILLE, "").equals("")) {
+                                if (pref.getString(KEY_PAYS, "").equals(user.getPays())|| pref.getString(KEY_PAYS, "").equals("")) {
+                                    if (pref.getString(KEY_NOM, "").equals(user.getNom()) || pref.getString(KEY_NOM, "").equals("")) {
+                                        if (pref.getString(KEY_PRENOM, "").equals(user.getPrenom())|| pref.getString(KEY_PRENOM, "").equals("")) {
+                                            if (!pref.getString(KEY_AGE, "").equals("") && Integer.parseInt(pref.getString(KEY_AGE, "")) >= user.getAge()||pref.getString(KEY_AGE, "").equals("")) {
                                                 listencour.add(user);
                                             }
                                         }
@@ -255,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
 
-                        publishProgress(((i * 100) / 30));
+                        publishProgress(((i * 100) / 50));
                     }
                 } catch (Exception e) {
                     Log.i("Erreur async", e.getMessage());
@@ -269,8 +273,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(List<Users> users) {
-                monAdapteur.addAll(users);
-                usersActuel = users;
+                if(users.size()==0){
+                    monAdapteur.add(new Users("Pas de résultats pour ce filtre","","","","",0,""));
+                }else{
+                    monAdapteur.addAll(users);
+                    usersActuel = users;
+                }
                 dialog.dismiss();
                 Log.d("2", "d");
             }

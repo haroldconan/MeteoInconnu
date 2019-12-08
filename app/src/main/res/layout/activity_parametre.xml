@@ -148,7 +148,7 @@
                 android:layout_weight="1"
                 android:layout_margin="20sp"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:text="" />
         </LinearLayout>
 

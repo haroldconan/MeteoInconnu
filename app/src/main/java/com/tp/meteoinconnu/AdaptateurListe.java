@@ -35,6 +35,7 @@ public class AdaptateurListe extends ArrayAdapter<Users> {
         viewHolder.txtprenom.setText(getItem(position).getPrenom());
         viewHolder.txtnom.setText(getItem(position).getNom());
         String imageURL = getItem(position).getImgURL();
+        if(!imageURL.equals(""))
         Picasso.get().load(imageURL).into(viewHolder.img );
 
         return convertView;

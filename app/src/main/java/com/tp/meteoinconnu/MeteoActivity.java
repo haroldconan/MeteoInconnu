@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class MeteoActivity extends AppCompatActivity {
 
@@ -63,7 +64,8 @@ public class MeteoActivity extends AppCompatActivity {
         txtmain = findViewById(R.id.txtmainmeteo);
         txttemp = findViewById(R.id.txttemperaturemeteometeo);
 
-
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        checkLocationPermission();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -72,6 +74,7 @@ public class MeteoActivity extends AppCompatActivity {
             location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
         }
+
         final LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 longitude = location.getLongitude();
@@ -176,9 +179,116 @@ public class MeteoActivity extends AppCompatActivity {
 
             }
         };
-
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, (long)2000, (float)10, locationListener);
-    }
+        List<String> providers = lm.getProviders(true);
+        Location loca = lm.getLastKnownLocation(providers.get(0));
+        longitude = loca.getLongitude();
+        latitude = loca.getLatitude();
+        new AsyncTask<String, Integer, Meteo>() {
 
+            private ProgressDialog dialog;
+            int progressentier = 0;
+
+            @Override
+            protected void onPreExecute() {
+                dialog = new ProgressDialog(MeteoActivity.this);
+                dialog.setMessage("Chargement...  " + progressentier + "%");
+                dialog.setCancelable(false);
+                dialog.show();
+            }
+
+            @Override
+            protected void onProgressUpdate(Integer... progress) {
+                Log.d("progression : ", progress[0].toString());
+                progressentier = progress[0];
+                dialog.setMessage("Chargement...  " + progressentier + "%");
+            }
+
+            @Override
+            protected Meteo doInBackground(String[] objects) {
+                HttpURLConnection connection = null;
+                BufferedReader reader = null;
+                JsonParser parser = new JsonParser();
+                Meteo meteo = null;
+
+                try {
+                    URL url = null;
+
+                    url = new URL(URLLISTMETEOPART1 + "lat="+latitude+"&lon="+longitude);
+                    Log.d("meteo", URLLISTMETEOPART1 + "lat="+latitude+"&lon="+longitude);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.connect();
+
+
+                    InputStream stream = connection.getInputStream();
+
+                    reader = new BufferedReader(new InputStreamReader(stream));
+
+                    StringBuffer buffer = new StringBuffer();
+                    String line = "";
+
+                    while ((line = reader.readLine()) != null) {
+                        buffer.append(line + "\n");
+
+                    }
+                    Log.d("object", buffer.toString());
+                    jsonObject = (JsonObject) parser.parse(buffer.toString());
+                    if (jsonObject.get("cod").getAsString().equals("404")) {
+                        return null;
+                    }
+                    Log.d("meteo", jsonObject.getAsJsonObject("main").toString());
+                    meteo = new Meteo(Double.parseDouble(jsonObject.getAsJsonObject("main").get("temp").getAsString()), Integer.parseInt(jsonObject.getAsJsonObject("main").get("humidity").getAsString()), jsonObject.getAsJsonArray("weather").get(0).getAsJsonObject().get("main").getAsString());
+                    publishProgress(100);
+
+                } catch (Exception e) {
+                    Log.d("Erreur async", e.getMessage());
+                } finally {
+                    if (connection != null)
+                        connection.disconnect();
+                }
+                return meteo;
+            }
+
+            @Override
+            protected void onPostExecute(Meteo meteo) {
+                dialog.dismiss();
+                if (meteo == null) {
+                    txttemp.setText("La ville n'est pas référencée");
+                    txtmain.setText("");
+                    txthumi.setText("");
+                    return;
+                }
+                String txt = "Il y a " + meteo.getHumidity() + "% d'humiditée";
+                txthumi.setText(txt);
+                txt = "La température est de " + meteo.getTemp() + "°C";
+                txttemp.setText(txt);
+                txt = "Le temp est " + meteo.getMain();
+                txtmain.setText(txt);
+                Log.d("pass", "fini METEO");
+            }
+        }.execute();
+    }
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+    public boolean checkLocationPermission()
+    {
+        String permission = "android.permission.ACCESS_FINE_LOCATION";
+        int res = this.checkCallingOrSelfPermission(permission);
+        return (res == PackageManager.PERMISSION_GRANTED);
+    }
 }
 

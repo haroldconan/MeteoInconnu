@@ -66,12 +66,12 @@ public class DetailActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imguserdetail);
         txtmain = findViewById(R.id.txtmaindetail);
 
-        txtage.setText(bundle.getString(MainActivity.KEY_AGE));
-        txtnom.setText(bundle.getString(MainActivity.KEY_NOM));
-        txtpays.setText(bundle.getString(MainActivity.KEY_PAYS));
-        txtprenom.setText(bundle.getString(MainActivity.KEY_PRENOM));
-        txtsexe.setText(bundle.getString(MainActivity.KEY_SEXE));
-        txtville.setText(bundle.getString(MainActivity.KEY_VILLE));
+        txtage.setText("Age : "+bundle.getString(MainActivity.KEY_AGE));
+        txtnom.setText("Nom : "+bundle.getString(MainActivity.KEY_NOM));
+        txtpays.setText("Pays : "+bundle.getString(MainActivity.KEY_PAYS));
+        txtprenom.setText("Prenom : "+bundle.getString(MainActivity.KEY_PRENOM));
+        txtsexe.setText("Sexe : "+bundle.getString(MainActivity.KEY_SEXE));
+        txtville.setText("Ville : "+bundle.getString(MainActivity.KEY_VILLE));
         Picasso.get().load(bundle.getString(MainActivity.KEY_IMG)).into(imageView);
 
         new AsyncTask<String, Integer, Meteo>() {

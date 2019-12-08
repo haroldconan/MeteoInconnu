@@ -68,10 +68,10 @@ public class ParametreActivity extends AppCompatActivity {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(MainActivity.KEY_PAYS, txtPays.getText().toString());
-        editor.putString(MainActivity.KEY_AGE, txtPays.getText().toString());
-        editor.putString(MainActivity.KEY_NOM, txtPays.getText().toString());
-        editor.putString(MainActivity.KEY_PRENOM, txtPays.getText().toString());
-        editor.putString(MainActivity.KEY_VILLE, txtPays.getText().toString());
+        editor.putString(MainActivity.KEY_AGE, txtAge.getText().toString());
+        editor.putString(MainActivity.KEY_NOM, txtNom.getText().toString());
+        editor.putString(MainActivity.KEY_PRENOM, txtPrenom.getText().toString());
+        editor.putString(MainActivity.KEY_VILLE, txtVille.getText().toString());
         editor.putBoolean(MainActivity.KEY_SEXE_PARAM_F, tgSexef.isChecked());
         editor.putBoolean(MainActivity.KEY_SEXE_PARAM_H, tgSexeh.isChecked());
         editor.apply();
