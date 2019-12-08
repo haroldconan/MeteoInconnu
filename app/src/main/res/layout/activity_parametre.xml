@@ -6,6 +6,179 @@
     android:layout_height="match_parent"
     tools:context=".ParametreActivity">
 
+    <LinearLayout
+        android:layout_width="418dp"
+        android:layout_height="668dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"
+                android:text="@string/ville"
+                 />
+
+            <EditText
+                android:id="@+id/txtVilleparam"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="20sp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"
+                android:text="@string/sexe" />
+
+            <ToggleButton
+                android:id="@+id/tgsexeparamf"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:layout_weight="1"
+                android:textOff="@string/femme"/>
+
+            <ToggleButton
+                android:id="@+id/tgsexeparamh"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:layout_weight="1"
+                android:textOff="@string/homme" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"
+                android:text="@string/nom" />
+
+            <EditText
+                android:id="@+id/txtnomparam"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="20sp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"
+                android:text="@string/prenom" />
+
+            <EditText
+                android:id="@+id/txtprenomparam"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"
+                android:text="@string/age" />
+
+            <EditText
+                android:id="@+id/txtageparam"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="20sp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"
+                android:text="@string/pays" />
+
+            <EditText
+                android:id="@+id/txtpaysparam"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:layout_margin="20sp"
+                android:inputType="textPersonName"
+                android:text="" />
+        </LinearLayout>
+    </LinearLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"
@@ -14,6 +187,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/menumeteo" />
+        app:menu="@menu/menumeteo" >
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

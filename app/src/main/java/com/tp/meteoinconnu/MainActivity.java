@@ -3,7 +3,9 @@ package com.tp.meteoinconnu;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String KEY_SEXE = "SEXE";
     public static final String KEY_IMG = "IMG";
     public static final String KEY_PAYS = "PAYS";
+    public static final String KEY_SEXE_PARAM_H = "SEXEH";
+    public static final String KEY_SEXE_PARAM_F = "SEXEF";
 
     private static final String URLLISTUSER = "https://randomuser.me/api/";
     private ListView listView;
@@ -105,24 +109,75 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         listView = findViewById(R.id.listinconnu);
         listView.setAdapter(monAdapteur);
-        new AsyncTask<String, Integer, List<Users>>() {
+        LancerRecherche();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-            private ProgressDialog dialog;
-            int progressentier = 0;
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra(KEY_NOM, usersActuel.get(i).getNom());
+                intent.putExtra(KEY_PRENOM,usersActuel.get(i).getPrenom());
+                intent.putExtra(KEY_AGE,usersActuel.get(i).getAge());
+                intent.putExtra(KEY_IMG,usersActuel.get(i).getImgURL());
+                intent.putExtra(KEY_PAYS,usersActuel.get(i).getPays());
+                intent.putExtra(KEY_SEXE,usersActuel.get(i).getSexe());
+                intent.putExtra(KEY_VILLE,usersActuel.get(i).getVille());
+                startActivity(intent);
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            if (resultCode == Activity.RESULT_OK) {
+                switch (requestCode) {
+                    case AJOUT_PERS_REQUEST_CODE: {
+                        Log.d("\n\n\nResult", data.getStringExtra(KEY_NOM) + data.getStringExtra(KEY_PRENOM) + data.getStringExtra(KEY_VILLE) + "none" + data.getStringExtra(KEY_SEXE) + Integer.parseInt(data.getStringExtra(KEY_AGE)) + "https://randomuser.me/api/portraits/men/88.jpg" + " \n\n\n");
+                        Users users = new Users(data.getStringExtra(KEY_NOM), data.getStringExtra(KEY_PRENOM), data.getStringExtra(KEY_VILLE), "none", data.getStringExtra(KEY_SEXE), Integer.parseInt(data.getStringExtra(KEY_AGE)), "https://randomuser.me/api/portraits/men/88.jpg");
+                        monAdapteur.add(users);
+                        usersActuel.add(users);
+                        monAdapteur.notifyDataSetChanged();
+                    }break;
+                    case PARAMETRE_REQUEST_CODE:{
+                        LancerRecherche();
+                    }
+                    break;
+                }
+            }
+            navView.setSelectedItemId(R.id.navigation_home);
+
+        } catch (Exception e) {
+            Log.d("Erreur result : ", e.getMessage());
+        }
+    }
+    public void LancerRecherche(){
+        AsyncTask<String, Integer, List<Users>> async = null;
+        final int[] progressentier = {0};
+        final ProgressDialog dialog;
+        dialog = new ProgressDialog(MainActivity.this);
+        dialog.setMessage("Chargement...  " + progressentier[0] + "%");
+        dialog.setCancelable(true);
+
+        async = new AsyncTask<String, Integer, List<Users>>() {
+
+
+
 
             @Override
             protected void onPreExecute() {
-                dialog = new ProgressDialog(MainActivity.this);
-                dialog.setMessage("Chargement...  " + progressentier + "%");
-                dialog.setCancelable(false);
+
                 dialog.show();
             }
 
             @Override
             protected void onProgressUpdate(Integer... progress) {
                 Log.d("progression : ", progress[0].toString());
-                progressentier = progress[0];
-                dialog.setMessage("Chargement...  " + progressentier + "%");
+                progressentier[0] = progress[0];
+                dialog.setMessage("Chargement...  " + progressentier[0] + "%");
             }
 
             @Override
@@ -157,7 +212,49 @@ public class MainActivity extends AppCompatActivity {
                         jsonObject = (JsonObject) parser.parse(buffer.toString());
                         jsonArray = jsonObject.getAsJsonArray("results");
                         Log.d("array", jsonArray.get(0).getAsJsonObject().getAsJsonObject("name").toString());
-                        listencour.add(new Users(jsonArray.get(0).getAsJsonObject().getAsJsonObject("name").get("first").getAsString(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("name").get("last").getAsString(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("location").get("city").getAsString(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("location").get("country").getAsString(), jsonArray.get(0).getAsJsonObject().get("gender").getAsString(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("dob").get("age").getAsInt(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("picture").get("large").getAsString()));
+                        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+                        Users user = new Users(jsonArray.get(0).getAsJsonObject().getAsJsonObject("name").get("first").getAsString(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("name").get("last").getAsString(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("location").get("city").getAsString(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("location").get("country").getAsString(), jsonArray.get(0).getAsJsonObject().get("gender").getAsString(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("dob").get("age").getAsInt(), jsonArray.get(0).getAsJsonObject().getAsJsonObject("picture").get("large").getAsString());
+                        Log.i("hey","\n"+pref.getBoolean(KEY_SEXE_PARAM_F,true)+"\n"+pref.getString(KEY_VILLE, "")+"\n"+pref.getString(KEY_PAYS, "")+"\n"+pref.getString(KEY_NOM, "")+"\n"+pref.getString(KEY_PRENOM, "")+"\n"+pref.getString(KEY_AGE, ""));
+                        if((!pref.getBoolean(KEY_SEXE_PARAM_F,true) && pref.getBoolean(KEY_SEXE_PARAM_H,true))&& user.getSexe() == "male") {
+                            if ((pref.getString(KEY_VILLE, "") != "" && pref.getString(KEY_VILLE, "") == user.getVille()) || pref.getString(KEY_VILLE, "") == "") {
+                                if ((pref.getString(KEY_PAYS, "") != "" && pref.getString(KEY_PAYS, "") == user.getPays())|| pref.getString(KEY_PAYS, "") == "") {
+                                    if ((pref.getString(KEY_NOM, "") != "" && pref.getString(KEY_NOM, "") == user.getNom()) || pref.getString(KEY_NOM, "") == "") {
+                                        if ((pref.getString(KEY_PRENOM, "") != "" && pref.getString(KEY_PRENOM, "") == user.getPrenom())|| pref.getString(KEY_PRENOM, "") == "") {
+                                            if ((pref.getString(KEY_AGE, "") != "" && Integer.parseInt(pref.getString(KEY_AGE, "")) == user.getAge())||pref.getString(KEY_AGE, "") == "") {
+                                                listencour.add(user);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if((pref.getBoolean(KEY_SEXE_PARAM_F,true) && !pref.getBoolean(KEY_SEXE_PARAM_H,true))&& user.getSexe() == "female") {
+                            if ((pref.getString(KEY_VILLE, "") != "" && pref.getString(KEY_VILLE, "") == user.getVille()) || pref.getString(KEY_VILLE, "") == "") {
+                                if ((pref.getString(KEY_PAYS, "") != "" && pref.getString(KEY_PAYS, "") == user.getPays())|| pref.getString(KEY_PAYS, "") == "") {
+                                    if ((pref.getString(KEY_NOM, "") != "" && pref.getString(KEY_NOM, "") == user.getNom()) || pref.getString(KEY_NOM, "") == "") {
+                                        if ((pref.getString(KEY_PRENOM, "") != "" && pref.getString(KEY_PRENOM, "") == user.getPrenom())|| pref.getString(KEY_PRENOM, "") == "") {
+                                            if ((pref.getString(KEY_AGE, "") != "" && Integer.parseInt(pref.getString(KEY_AGE, "")) == user.getAge())||pref.getString(KEY_AGE, "") == "") {
+                                                listencour.add(user);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if((pref.getBoolean(KEY_SEXE_PARAM_F,true) && pref.getBoolean(KEY_SEXE_PARAM_H,true)) || (!pref.getBoolean(KEY_SEXE_PARAM_F,true) && !pref.getBoolean(KEY_SEXE_PARAM_H,true))) {
+                            if ((pref.getString(KEY_VILLE, "") != "" && pref.getString(KEY_VILLE, "") == user.getVille()) || pref.getString(KEY_VILLE, "") == "") {
+                                if ((pref.getString(KEY_PAYS, "") != "" && pref.getString(KEY_PAYS, "") == user.getPays())|| pref.getString(KEY_PAYS, "") == "") {
+                                    if ((pref.getString(KEY_NOM, "") != "" && pref.getString(KEY_NOM, "") == user.getNom()) || pref.getString(KEY_NOM, "") == "") {
+                                        if ((pref.getString(KEY_PRENOM, "") != "" && pref.getString(KEY_PRENOM, "") == user.getPrenom())|| pref.getString(KEY_PRENOM, "") == "") {
+                                            if ((pref.getString(KEY_AGE, "") != "" && Integer.parseInt(pref.getString(KEY_AGE, "")) == user.getAge())||pref.getString(KEY_AGE, "") == "") {
+                                                listencour.add(user);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         publishProgress(((i * 100) / 30));
                     }
                 } catch (Exception e) {
@@ -165,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 finally {
                     if(connection != null   )
-                    connection.disconnect();
+                        connection.disconnect();
                 }
                 return listencour;
             }
@@ -178,45 +275,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("2", "d");
             }
         }.execute();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        final AsyncTask<String, Integer, List<Users>> finalAsync = async;
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra(KEY_NOM, usersActuel.get(i).getNom());
-                intent.putExtra(KEY_PRENOM,usersActuel.get(i).getPrenom());
-                intent.putExtra(KEY_AGE,usersActuel.get(i).getAge());
-                intent.putExtra(KEY_IMG,usersActuel.get(i).getImgURL());
-                intent.putExtra(KEY_PAYS,usersActuel.get(i).getPays());
-                intent.putExtra(KEY_SEXE,usersActuel.get(i).getSexe());
-                intent.putExtra(KEY_VILLE,usersActuel.get(i).getVille());
-                startActivity(intent);
-
+            public void onCancel(DialogInterface dialogInterface) {
+                finalAsync.cancel(true);
             }
         });
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        try {
-            if (resultCode == Activity.RESULT_OK) {
-                switch (requestCode) {
-                    case AJOUT_PERS_REQUEST_CODE: {
-                        Log.d("\n\n\nResult", data.getStringExtra(KEY_NOM) + data.getStringExtra(KEY_PRENOM) + data.getStringExtra(KEY_VILLE) + "none" + data.getStringExtra(KEY_SEXE) + Integer.parseInt(data.getStringExtra(KEY_AGE)) + "https://randomuser.me/api/portraits/men/88.jpg" + " \n\n\n");
-                        Users users = new Users(data.getStringExtra(KEY_NOM), data.getStringExtra(KEY_PRENOM), data.getStringExtra(KEY_VILLE), "none", data.getStringExtra(KEY_SEXE), Integer.parseInt(data.getStringExtra(KEY_AGE)), "https://randomuser.me/api/portraits/men/88.jpg");
-                        monAdapteur.add(users);
-                        usersActuel.add(users);
-                        monAdapteur.notifyDataSetChanged();
-                    }
-                    break;
-                }
-            }
-            navView.setSelectedItemId(R.id.navigation_home);
-
-        } catch (Exception e) {
-            Log.d("Erreur result : ", e.getMessage());
-        }
     }
 }
